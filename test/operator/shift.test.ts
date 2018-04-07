@@ -3,7 +3,7 @@ import { ModeHandler } from '../../src/mode/modeHandler';
 import { getTestingFunctions } from '../testSimplifier';
 import { cleanUpWorkspace, setupWorkspace } from '../testUtils';
 
-suite('shift operator', () => {
+suite.only('shift operator', () => {
   let modeHandler: ModeHandler;
 
   let { newTest, newTestOnly } = getTestingFunctions();
@@ -48,5 +48,33 @@ suite('shift operator', () => {
     start: ['|zxcv', 'zxcv', 'zxcv'],
     keysPressed: '>2G',
     end: ['  |zxcv', '  zxcv', 'zxcv'],
+  });
+
+  newTest({
+    title: 'shift block below',
+    start: ['|zxcv', 'zxcv', 'zxcv', 'zxcv'],
+    keysPressed: 'Vjj>',
+    end: ['  |zxcv', '  zxcv', 'zxcv', 'zxcv'],
+  });
+
+  newTest({
+    title: 'shift block below, then repeat',
+    start: ['|zxcv', 'zxcv', 'zxcv', 'zxcv'],
+    keysPressed: 'Vjj>.',
+    end: ['    |zxcv', '    zxcv', 'zxcv', 'zxcv'],
+  });
+
+  newTest({
+    title: 'shift block above',
+    start: ['|zxcv', 'zxcv', 'zxcv', 'zxcv'],
+    keysPressed: 'GVkk>',
+    end: ['|zxcv', 'zxcv', '  zxcv', '  zxcv'],
+  });
+
+  newTest({
+    title: 'shift block above, then repeat',
+    start: ['|zxcv', 'zxcv', 'zxcv', 'zxcv'],
+    keysPressed: 'GVkk>.',
+    end: ['|zxcv', 'zxcv', '    zxcv', '    zxcv'],
   });
 });
